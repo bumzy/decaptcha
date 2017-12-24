@@ -2,6 +2,7 @@
 from decaptcha import DeCaptcha
 from utils import get_captcha_image
 import logging
+import time
 
 FORMAT = '[%(levelname)s] %(pathname)s:%(lineno)s %(message)s'
 logging.basicConfig(format=FORMAT, level=40)
@@ -18,15 +19,22 @@ captcha_file.close()
 
 login_url = 'http://bt.byr.cn/login.php'
 captcha_image = get_captcha_image(login_url)
-decaptcha = DeCaptcha()
+
+decaptcha = DeCaptcha(6)
 decaptcha.train(image_text_list)
 decaptcha.dump_model('./captcha_classifier.pkl')
+start = time.clock()
 captcha_text = decaptcha.decode(captcha_image)
+elapsed = (time.clock() - start)
+print("Time used:", elapsed)
 print('captcha_text: %s' % captcha_text)
 
 
 decaptcha_copy = DeCaptcha()
 decaptcha_copy.load_model('./captcha_classifier.pkl')
-captcha_text = decaptcha.decode(captcha_image)
+start = time.clock()
+captcha_text = decaptcha_copy.decode(captcha_image)
+elapsed = (time.clock() - start)
+print("Time used:", elapsed)
 print('captcha_text: %s' % captcha_text)
 captcha_image.show()
