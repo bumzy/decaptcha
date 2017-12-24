@@ -3,9 +3,11 @@
 
 ### 环境
  * Linux Mint 18.2 Cinnamon 64-bit
- * python 3.5.2
+ * python 3.5.2 or 2.7.12
  * scikit-learn 0.19.1
  * Pillow 4.3.0
+ * scipy
+ * numpy
 
 ### 用法
 详见./demo.py

@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
+import sys
 from PIL import Image
-from urllib.parse import urljoin
-from html.parser import HTMLParser
-from urllib.request import Request, urlopen, urlretrieve
 from io import BytesIO
 import re
 import logging
+if sys.version > '3':
+    from urllib.parse import urljoin
+    from html.parser import HTMLParser
+    from urllib.request import Request, urlopen
+else:
+    from urlparse import urljoin
+    from HTMLParser import HTMLParser
+    from urllib2 import Request, urlopen
 
 
 class _CaptchaParser(HTMLParser):
